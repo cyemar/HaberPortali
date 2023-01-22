@@ -1,0 +1,15 @@
+th {
+    width: 100px;
+}
+
+td {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100px;
+    text-overflow: ellipsis;
+}
+
+table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}

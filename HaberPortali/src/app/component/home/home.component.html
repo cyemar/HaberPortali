@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-3 mt-3" *ngFor="let new of news">
+      <div class="card" style="width: 18rem;">
+        <img [src]="new.newsImg" class="card-img-top" alt="...">
+        <div class="card-body">
+          {{new.newsTitle}}
+          <h5 class="card-title of"></h5>
+          <a href="#" class="btn btn-primary">Devamını Gör...</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

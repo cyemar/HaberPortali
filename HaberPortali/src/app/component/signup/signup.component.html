@@ -1,0 +1,19 @@
+<main class="form-signin w-100 m-auto">
+    <form  #RegisterForm="ngForm">
+      <h1 class="h3 mb-3 fw-normal">Lütfen Üye Olun</h1>
+      <div class="form-floating">
+        <input type="text" ngModel class="form-control" name="username" id="floatingInput username" #username placeholder="Ali Veli">
+        <label for="floatingInput">Ad Soyad</label>
+      </div>
+      <div class="mt-2 form-floating">
+        <input type="mail" ngModel class="form-control" name="mail" id="floatingInput mail" #mail placeholder="ornek@outlook.com">
+        <label for="floatingInput">E-mail</label>
+      </div>
+      <div class="form-floating mt-2">
+        <input type="password" ngModel class="form-control" name="password" id="floatingPassword password" #password placeholder="Şifre">
+        <label for="floatingPassword">Şifre</label>
+      </div>
+  
+      <input type="submit" id="saveData" (click)="registerUser(username.value, mail.value, password.value)" name="signup_submit" value="Kayıt Ol"> 
+    </form>
+  </main>
