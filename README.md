@@ -5,4 +5,5 @@
 
 
 Veritabanı Şeması:
+
 ![dbschema](https://user-images.githubusercontent.com/67399199/236829252-16c41630-eaa8-49ba-b610-2388089eae42.png)
