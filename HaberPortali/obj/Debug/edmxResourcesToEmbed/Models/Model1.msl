@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities1">
+    <EntitySetMapping Name="category">
+      <EntityTypeMapping TypeName="Database1Model.category">
+        <MappingFragment StoreEntitySet="category">
+          <ScalarProperty Name="catId" ColumnName="catId" />
+          <ScalarProperty Name="catName" ColumnName="catName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="comment">
+      <EntityTypeMapping TypeName="Database1Model.comment">
+        <MappingFragment StoreEntitySet="comment">
+          <ScalarProperty Name="comId" ColumnName="comId" />
+          <ScalarProperty Name="comUserId" ColumnName="comUserId" />
+          <ScalarProperty Name="comContent" ColumnName="comContent" />
+          <ScalarProperty Name="comDate" ColumnName="comDate" />
+          <ScalarProperty Name="comNewsId" ColumnName="comNewsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="newsInfo">
+      <EntityTypeMapping TypeName="Database1Model.newsInfo">
+        <MappingFragment StoreEntitySet="newsInfo">
+          <ScalarProperty Name="newsId" ColumnName="newsId" />
+          <ScalarProperty Name="newsTitle" ColumnName="newsTitle" />
+          <ScalarProperty Name="newsContent" ColumnName="newsContent" />
+          <ScalarProperty Name="newsImage" ColumnName="newsImage" />
+          <ScalarProperty Name="newsDate" ColumnName="newsDate" />
+          <ScalarProperty Name="newsCatId" ColumnName="newsCatId" />
+          <ScalarProperty Name="newsCreatedBy" ColumnName="newsCreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userInfo">
+      <EntityTypeMapping TypeName="Database1Model.userInfo">
+        <MappingFragment StoreEntitySet="userInfo">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="userMail" ColumnName="userMail" />
+          <ScalarProperty Name="userPw" ColumnName="userPw" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

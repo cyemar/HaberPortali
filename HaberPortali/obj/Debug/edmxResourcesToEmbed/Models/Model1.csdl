@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="catId" />
+    </Key>
+    <Property Name="catId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="catName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="newsInfo" Relationship="Self.FK_newsInfo_Tocategory" FromRole="category" ToRole="newsInfo" />
+  </EntityType>
+  <EntityType Name="comment">
+    <Key>
+      <PropertyRef Name="comId" />
+    </Key>
+    <Property Name="comId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="comUserId" Type="Int32" Nullable="false" />
+    <Property Name="comContent" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="comDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="comNewsId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="newsInfo" Relationship="Self.FK_comment_TonewsInfo" FromRole="comment" ToRole="newsInfo" />
+    <NavigationProperty Name="userInfo" Relationship="Self.FK_comment_TouserInfo" FromRole="comment" ToRole="userInfo" />
+  </EntityType>
+  <EntityType Name="newsInfo">
+    <Key>
+      <PropertyRef Name="newsId" />
+    </Key>
+    <Property Name="newsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="newsTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="newsContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="newsImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="newsDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="newsCatId" Type="Int32" Nullable="false" />
+    <Property Name="newsCreatedBy" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="category" Relationship="Self.FK_newsInfo_Tocategory" FromRole="newsInfo" ToRole="category" />
+    <NavigationProperty Name="comment" Relationship="Self.FK_comment_TonewsInfo" FromRole="newsInfo" ToRole="comment" />
+    <NavigationProperty Name="userInfo" Relationship="Self.FK_newsInfo_TouserInfo" FromRole="newsInfo" ToRole="userInfo" />
+  </EntityType>
+  <EntityType Name="userInfo">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userMail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userPw" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="comment" Relationship="Self.FK_comment_TouserInfo" FromRole="userInfo" ToRole="comment" />
+    <NavigationProperty Name="newsInfo" Relationship="Self.FK_newsInfo_TouserInfo" FromRole="userInfo" ToRole="newsInfo" />
+  </EntityType>
+  <Association Name="FK_newsInfo_Tocategory">
+    <End Role="category" Type="Self.category" Multiplicity="1" />
+    <End Role="newsInfo" Type="Self.newsInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="catId" />
+      </Principal>
+      <Dependent Role="newsInfo">
+        <PropertyRef Name="newsCatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_comment_TonewsInfo">
+    <End Role="newsInfo" Type="Self.newsInfo" Multiplicity="1" />
+    <End Role="comment" Type="Self.comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="newsInfo">
+        <PropertyRef Name="newsId" />
+      </Principal>
+      <Dependent Role="comment">
+        <PropertyRef Name="comNewsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_comment_TouserInfo">
+    <End Role="userInfo" Type="Self.userInfo" Multiplicity="1" />
+    <End Role="comment" Type="Self.comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userInfo">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="comment">
+        <PropertyRef Name="comUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_newsInfo_TouserInfo">
+    <End Role="userInfo" Type="Self.userInfo" Multiplicity="1" />
+    <End Role="newsInfo" Type="Self.newsInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userInfo">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="newsInfo">
+        <PropertyRef Name="newsCreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="category" EntityType="Self.category" />
+    <EntitySet Name="comment" EntityType="Self.comment" />
+    <EntitySet Name="newsInfo" EntityType="Self.newsInfo" />
+    <EntitySet Name="userInfo" EntityType="Self.userInfo" />
+    <AssociationSet Name="FK_newsInfo_Tocategory" Association="Self.FK_newsInfo_Tocategory">
+      <End Role="category" EntitySet="category" />
+      <End Role="newsInfo" EntitySet="newsInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_comment_TonewsInfo" Association="Self.FK_comment_TonewsInfo">
+      <End Role="newsInfo" EntitySet="newsInfo" />
+      <End Role="comment" EntitySet="comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_comment_TouserInfo" Association="Self.FK_comment_TouserInfo">
+      <End Role="userInfo" EntitySet="userInfo" />
+      <End Role="comment" EntitySet="comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_newsInfo_TouserInfo" Association="Self.FK_newsInfo_TouserInfo">
+      <End Role="userInfo" EntitySet="userInfo" />
+      <End Role="newsInfo" EntitySet="newsInfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

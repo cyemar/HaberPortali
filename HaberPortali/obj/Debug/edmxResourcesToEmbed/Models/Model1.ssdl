@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="catId" />
+    </Key>
+    <Property Name="catId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="catName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="comment">
+    <Key>
+      <PropertyRef Name="comId" />
+    </Key>
+    <Property Name="comId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="comUserId" Type="int" Nullable="false" />
+    <Property Name="comContent" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="comDate" Type="datetime" Nullable="false" />
+    <Property Name="comNewsId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="newsInfo">
+    <Key>
+      <PropertyRef Name="newsId" />
+    </Key>
+    <Property Name="newsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="newsTitle" Type="varchar(max)" Nullable="false" />
+    <Property Name="newsContent" Type="varchar(max)" Nullable="false" />
+    <Property Name="newsImage" Type="varchar(max)" Nullable="false" />
+    <Property Name="newsDate" Type="datetime" Nullable="false" />
+    <Property Name="newsCatId" Type="int" Nullable="false" />
+    <Property Name="newsCreatedBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="userInfo">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="userMail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="userPw" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_comment_TonewsInfo">
+    <End Role="newsInfo" Type="Self.newsInfo" Multiplicity="1" />
+    <End Role="comment" Type="Self.comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="newsInfo">
+        <PropertyRef Name="newsId" />
+      </Principal>
+      <Dependent Role="comment">
+        <PropertyRef Name="comNewsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_comment_TouserInfo">
+    <End Role="userInfo" Type="Self.userInfo" Multiplicity="1" />
+    <End Role="comment" Type="Self.comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userInfo">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="comment">
+        <PropertyRef Name="comUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_newsInfo_Tocategory">
+    <End Role="category" Type="Self.category" Multiplicity="1" />
+    <End Role="newsInfo" Type="Self.newsInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="catId" />
+      </Principal>
+      <Dependent Role="newsInfo">
+        <PropertyRef Name="newsCatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_newsInfo_TouserInfo">
+    <End Role="userInfo" Type="Self.userInfo" Multiplicity="1" />
+    <End Role="newsInfo" Type="Self.newsInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userInfo">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="newsInfo">
+        <PropertyRef Name="newsCreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1ModelStoreContainer">
+    <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="comment" EntityType="Self.comment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="newsInfo" EntityType="Self.newsInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="userInfo" EntityType="Self.userInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_comment_TonewsInfo" Association="Self.FK_comment_TonewsInfo">
+      <End Role="newsInfo" EntitySet="newsInfo" />
+      <End Role="comment" EntitySet="comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_comment_TouserInfo" Association="Self.FK_comment_TouserInfo">
+      <End Role="userInfo" EntitySet="userInfo" />
+      <End Role="comment" EntitySet="comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_newsInfo_Tocategory" Association="Self.FK_newsInfo_Tocategory">
+      <End Role="category" EntitySet="category" />
+      <End Role="newsInfo" EntitySet="newsInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_newsInfo_TouserInfo" Association="Self.FK_newsInfo_TouserInfo">
+      <End Role="userInfo" EntitySet="userInfo" />
+      <End Role="newsInfo" EntitySet="newsInfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
